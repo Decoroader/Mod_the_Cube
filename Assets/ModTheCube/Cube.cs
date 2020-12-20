@@ -5,19 +5,37 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     public MeshRenderer Renderer;
-    
+
+    private float speedRotation;
+    private float rangeX = 1.0f;
+    private float rangeY_Z = 5.0f;
+    private float startScale;
+    private int dinamicScale = 100;
+
+
     void Start()
     {
-        transform.position = new Vector3(3, 4, 1);
-        transform.localScale = Vector3.one * 1.3f;
+        transform.position = new Vector3(Random.Range(-rangeX, rangeX),
+            Random.Range(-rangeY_Z, rangeY_Z), Random.Range(-rangeY_Z, rangeY_Z));
+
+        startScale = Random.Range(1.0f, 5.0f);
         
-        Material material = Renderer.material;
+        Material startMaterial = Renderer.material;
         
-        material.color = new Color(0.5f, 1.0f, 0.3f, 0.4f);
+        startMaterial.color = Random.ColorHSV();
+        speedRotation = Random.Range(5.0f, 25.0f);
     }
     
     void Update()
     {
-        transform.Rotate(10.0f * Time.deltaTime, 0.0f, 0.0f);
+        transform.Rotate(speedRotation * Time.deltaTime, 0.5f, 0.5f);
+        dinamicScale++;
+        transform.localScale = Vector3.one * startScale * dinamicScale/100;
+        if (transform.localScale.x > 7)
+        {
+            dinamicScale = 100;
+            Material material = Renderer.material;
+            material.color = Random.ColorHSV();
+        }
     }
 }
