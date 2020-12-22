@@ -41,20 +41,33 @@ public class Cube : MonoBehaviour
         
     }
     private void Coloring(int addParameter)
-	{
+    {
         if (transform.localScale.x > 7)
         {
             dinamicScale = 10;
-            
+
             material.color = Random.ColorHSV();
-            
-            material.color = new Color(Random.Range(0.1f, 1.0f), Random.Range(0.1f, 1.0f), Random.Range(0.1f, 1.0f), 
-                0.1f);
-            
+
+            material.color = new Color(Random.Range(0.1f, 1.0f), Random.Range(0.1f, 1.0f), Random.Range(0.1f, 1.0f),
+                0.9f);
+
         }
-        //if (addParameter < 0)
-        //    addParameter *= -1;
-        //material.color = new Color(material.color.r, material.color.g, addParameter / 50, addParameter/50);
-        //material.color = new Color(material.color.r, material.color.g, material.color.b, addParameter/50);
+        if (addParameter < 0)
+            addParameter *= -1;
+        if (addParameter > 90)
+            addParameter = 90;
+
+        float trigArg = (float)(addParameter / 57.29578);
+        material.color = new Color((float)(System.Math.Cos(trigArg)), 
+            material.color.g * (float)(System.Math.Sin(trigArg * 2)),
+            (float)System.Math.Sin(trigArg));
+
+        if (Input.GetKey(KeyCode.C))
+        {
+            Debug.Log("Sin addParameter is " + (System.Math.Sin(addParameter / 57.29578)));
+            Debug.Log("Cos addParameter is " + (System.Math.Cos(addParameter / 57.29578)));
+            Debug.Log("material.color.r " + material.color.r + ", material.color.g " + material.color.g +
+                ", material.color.b " + material.color.b);
+        }
     }
 }
