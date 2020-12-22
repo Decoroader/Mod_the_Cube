@@ -4,3 +4,4 @@ Logs
 *.csproj
 Mod_the_Cube.sln
 obj
+.vs
