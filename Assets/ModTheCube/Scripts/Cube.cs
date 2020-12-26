@@ -10,15 +10,12 @@ public class Cube : MonoBehaviour
     private float rangeX = 1.0f;
     private float rangeY_Z = 5.0f;
 
-    private int mainParameter;
+    [SerializeField]private int mainParameter;
 
     private Material material;
     private float rad = 57.29578f;
     private float piNumb = Mathf.PI;
     private int witeThreshold = 500;
-
-    private Color cubeColor;
-    public float componentA;
 
     void Start()
     {
@@ -26,7 +23,6 @@ public class Cube : MonoBehaviour
             Random.Range(-rangeY_Z, rangeY_Z), Random.Range(-rangeY_Z, rangeY_Z));
 
         material = Renderer.material;
-        cubeColor = material.color;
 
         speedRotation = 1.5f;
         mainParameter = Random.Range(1, 180);
@@ -42,14 +38,10 @@ public class Cube : MonoBehaviour
             mainParameter++;
         if (Input.GetKey(KeyCode.DownArrow))
             mainParameter--;
-        transform.Rotate(speedRotation * Time.deltaTime * mainParameter, 
-            speedRotation * Time.deltaTime * mainParameter, speedRotation * Time.deltaTime * mainParameter);
+		transform.Rotate(speedRotation * Time.deltaTime * mainParameter,
+			speedRotation * Time.deltaTime * mainParameter, speedRotation * Time.deltaTime * mainParameter);
 
-        //Coloring(mainParameter);
-        material.color = new Color(.1f, 0, .99f);
-        cubeColor = material.color;
-        cubeColor.a = componentA;
-        material.color = cubeColor;
+		Coloring(mainParameter);
 
         if (Input.GetKey(KeyCode.Q))
             Application.Quit();
@@ -63,7 +55,7 @@ public class Cube : MonoBehaviour
         float sectionR = colorControl / rad;
         float sectionG = 0;
         float sectionB = 0;
-        float sectionA = .01f;
+        float sectionA = .1f;
 
         if ((colorControl >= 45))
             sectionG = (colorControl / rad - piNumb / 4) * 2;
@@ -81,12 +73,6 @@ public class Cube : MonoBehaviour
 
         material.color = new Color((Mathf.Cos(sectionR)), (Mathf.Sin(sectionG)),
             Mathf.Sin(sectionB), sectionA);
-
-        if (Input.GetKey(KeyCode.C))
-        {
-            Debug.Log("material.color.r " + material.color.r + ", material.color.g " + material.color.g +
-                ", material.color.b " + material.color.b + ", material.color.a " + material.color.a);
-        }
     }
 }
 
