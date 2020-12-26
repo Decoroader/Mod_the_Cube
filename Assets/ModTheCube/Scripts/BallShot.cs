@@ -6,7 +6,6 @@ public class BallShot : MonoBehaviour
     public GameObject ballPrefab;
 
     private GameObject currBall;
-    private float speed = 33.0f;
 
     void Update()
     {
@@ -16,9 +15,7 @@ public class BallShot : MonoBehaviour
             currBall.transform.localScale = Vector3.one * Random.Range(1.0f, 3.0f);
             currBall.GetComponent<Renderer>().material.color = 
                 new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
-            Destroy(currBall, 1.5f);
+            Destroy(currBall, 3f);
         }
-        if(currBall != null)
-            currBall.transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 }
