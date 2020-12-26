@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BallShot : MonoBehaviour
+public class BallSpawn : MonoBehaviour
 {
     public GameObject mainCube;
     public GameObject ballPrefab;

@@ -6,40 +6,35 @@ public class Cube : MonoBehaviour
 
     private float speedRotation;
     private float speedMove = 1.10f;
+    private float horizontal;
     private float rangeX = 1.0f;
     private float rangeY_Z = 5.0f;
-
-    private float currentScale;
-    private float scaleDiscret = 0.055f;
-    private int scaleAmass = 1;
 
     private int mainParameter;
 
     private Material material;
     private float rad = 57.29578f;
-    private float horizontal;
-    private int witeThreshold = 500;
     private float piNumb = Mathf.PI;
+    private int witeThreshold = 500;
+
+    private Color cubeColor;
+    public float componentA;
 
     void Start()
     {
         transform.position = new Vector3(Random.Range(-rangeX, rangeX),
             Random.Range(-rangeY_Z, rangeY_Z), Random.Range(-rangeY_Z, rangeY_Z));
 
-        currentScale = Random.Range(1.0f, 5.0f);
-        transform.localScale = Vector3.one * currentScale;
-        
-        material = Renderer.material; 
+        material = Renderer.material;
+        cubeColor = material.color;
 
         speedRotation = 1.5f;
-        mainParameter = Random.Range(1, 91);
+        mainParameter = Random.Range(1, 180);
     }
     
     void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
-        // this line doesn't work the way i want:
-        //transform.Translate(Vector3.right * Time.deltaTime * horizontal * speedMove);
         transform.position = new Vector3(transform.position.x + horizontal * speedMove, 
             transform.position.y, transform.position.z);
 
@@ -50,21 +45,16 @@ public class Cube : MonoBehaviour
         transform.Rotate(speedRotation * Time.deltaTime * mainParameter, 
             speedRotation * Time.deltaTime * mainParameter, speedRotation * Time.deltaTime * mainParameter);
 
-        Coloring(mainParameter);
-
-        ScalingCube();
+        //Coloring(mainParameter);
+        material.color = new Color(.1f, 0, .99f);
+        cubeColor = material.color;
+        cubeColor.a = componentA;
+        material.color = cubeColor;
 
         if (Input.GetKey(KeyCode.Q))
             Application.Quit();
     }
-    private void ScalingCube()
-	{
-        if ((transform.localScale.x > 7) || (transform.localScale.x < 1))
-            scaleAmass *= -1;
 
-        currentScale += scaleDiscret * scaleAmass;
-        transform.localScale = Vector3.one * currentScale;
-    }
     private void Coloring(int colorControl)
     {
         if (colorControl < 0)
@@ -99,3 +89,4 @@ public class Cube : MonoBehaviour
         }
     }
 }
+
