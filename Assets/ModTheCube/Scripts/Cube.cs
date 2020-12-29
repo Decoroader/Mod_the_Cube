@@ -5,6 +5,7 @@ public class Cube : MonoBehaviour
     public MeshRenderer Renderer;
 
     private float speedRotation;
+    private int speedDiscrette = 5;
     private float speedMove = 1.10f;
     private float horizontal;
     private float rangeX = 1.0f;
@@ -35,10 +36,10 @@ public class Cube : MonoBehaviour
             transform.position.y, transform.position.z);
 
         if (Input.GetKey(KeyCode.UpArrow))
-            mainParameter++;
+            mainParameter += speedDiscrette;
         if (Input.GetKey(KeyCode.DownArrow))
-            mainParameter--;
-		transform.Rotate(speedRotation * Time.deltaTime * mainParameter,
+            mainParameter -= speedDiscrette;
+        transform.Rotate(speedRotation * Time.deltaTime * mainParameter,
 			speedRotation * Time.deltaTime * mainParameter, speedRotation * Time.deltaTime * mainParameter);
 
 		Coloring(mainParameter);
